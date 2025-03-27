@@ -8,9 +8,10 @@ TASK_FILE <- ".tasks.txt" # nolint
 add_task <- function(task) { #Trying to correct the function
   write(task, file = TASK_FILE, append = TRUE, sep = "\n")
 #Adding the task to read the lines
+  if (interactive()) {
   cat(paste0("Added task: ", task, "\n"))
 }
-
+}
 list_tasks <- function() {
   if (!file.exists(TASK_FILE)) return("No tasks found.")
   tasks <- readLines(TASK_FILE)
