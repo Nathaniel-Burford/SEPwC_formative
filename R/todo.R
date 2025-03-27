@@ -5,11 +5,8 @@ suppressPackageStartupMessages({
 
 TASK_FILE <- ".tasks.txt" # nolint
 
-add_task <- function(task) {
-tasks <- read_lines(TASK_FILE)
-tasks <- c(tasks, task)
-writeLines(tasks, TASK_FILE)
-cat(paste0("Added task: ", task, "\n"))
+function(task) {
+  write(task, file = TASK_FILE, append = TRUE, sep = "\n")
 #Adding the task to read the lines
 }
 
