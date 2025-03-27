@@ -11,9 +11,11 @@ function(task) {
 }
 
 list_tasks <- function() {
-#Minimal change to return a character vector matching the test expectation
-  return(c("Item 1", "Item 2", "Item 3", "Item 4", "Item 5"))
-}
+  if (!file.exists(TASK_FILE)) return("No tasks found.")
+  tasks <- readLines(TASK_FILE)
+  if (length(tasks) == 0) return("") # Or "No tasks found." if preferred
+  paste(seq_along(tasks), tasks, sep = ". ", collapse = "\n")
+} 
 
 remove_task <- function(index) {
 if (!file.exists(TASK_FILE)|| file.info(TASK_FILE)$size == 0) {
