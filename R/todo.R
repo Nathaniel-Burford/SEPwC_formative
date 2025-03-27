@@ -19,8 +19,21 @@ list_tasks <- function() {
 }
 
 remove_task <- function(index) {
-
+if (!file.exists(TASK_FILE)|| file.info(TASK_FILE)$size == 0) {
+  cat("No tasks to remove.\n")
+  return()
 }
+tasks <- readLines(TASK_FILE)
+index <- as.integer(index)
+if (is.na(index) || index < 1 || index > length(tasks)) {
+  cat("Invalid task index. \n")
+  return()
+}
+removed_task <- tasks[index]
+tasks <- tasks[-index]
+writeLines(tasks, TASK_FILE)
+cat(paste0("Removed task ", index, ": ", removed_task, "\n"))
+} #Removing the task if item is less than 1
 
 main <- function(args) {
 
