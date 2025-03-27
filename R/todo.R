@@ -13,26 +13,28 @@ function(task) {
 list_tasks <- function() {
   if (!file.exists(TASK_FILE)) return("No tasks found.")
   tasks <- readLines(TASK_FILE)
-  if (length(tasks) == 0) return("") # Or "No tasks found." if preferred
+  if (length(tasks) == 0) return("No tasks found")
   paste(seq_along(tasks), tasks, sep = ". ", collapse = "\n")
 } 
 
 remove_task <- function(index) {
-if (!file.exists(TASK_FILE)|| file.info(TASK_FILE)$size == 0) {
-  cat("No tasks to remove.\n")
-  return()
+ tasks <- NA
+if (file.exists(TASK_FILE)) {
+  tasks <- readLines(TASK_FILE)
+} else {
+  stop("File cannot be found")
 }
-tasks <- readLines(TASK_FILE)
-index <- as.integer(index)
-if (is.na(index) || index < 1 || index > length(tasks)) {
-  cat("Invalid task index. \n")
-  return()
+if (index <= length(tasks)) {
+  tasks <- tasks[-index]
+  if (identical(tasks, character(0))) {
+    stop("Task cannot be found")
+  }
+  writeLines(tasks, TASK_FILE)
+  print("Task removed.")
+} else {
+  stop("No tasks found.")
 }
-removed_task <- tasks[index]
-tasks <- tasks[-index]
-writeLines(tasks, TASK_FILE)
-cat(paste0("Removed task ", index, ": ", removed_task, "\n"))
-} #Removing the task if item is less than 1
+}
 
 main <- function(args) {
 
