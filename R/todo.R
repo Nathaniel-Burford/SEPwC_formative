@@ -39,6 +39,10 @@ if (index <= length(tasks)) {
 
 main <- function(args) {
 
+  if (!file.exists(TASK_FILE)) {
+    file.create(TASK_FILE)
+  }
+  
   if (!is.null(args$add)) {
     add_task(args$add)
   } else if (args$list) {
