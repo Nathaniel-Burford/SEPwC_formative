@@ -12,6 +12,7 @@ add_task <- function(task) { #Trying to correct the function
   cat(paste0("Added task: ", task, "\n"))
 }
 }
+
 list_tasks <- function() {
   if (!file.exists(TASK_FILE)) return("No tasks found.")
   tasks <- readLines(TASK_FILE)
@@ -39,11 +40,9 @@ if (index <= length(tasks)) {
 }
 
 main <- function(args) {
-
   if (!file.exists(TASK_FILE)) {
     file.create(TASK_FILE)
   }
-  
   if (!is.null(args$add)) {
     add_task(args$add)
   } else if (args$list) {
@@ -55,8 +54,6 @@ main <- function(args) {
     print("Use --help to get help on using this program")
   }
 }
-
-
 if (sys.nframe() == 0) {
 
   # main program, called via Rscript
