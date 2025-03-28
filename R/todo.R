@@ -3,6 +3,10 @@ suppressPackageStartupMessages({
   library(argparse)
 })
 
+suppressPackageStartupMessages({
+  library(lintr)
+})  
+
 TASK_FILE <- ".tasks.txt" # nolint
 
 add_task <- function(task) { #Trying to correct the function
