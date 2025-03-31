@@ -43,15 +43,16 @@ main <- function(args) {
   if (!file.exists(TASK_FILE)) {
     file.create(TASK_FILE)
   }
+  
   if (!is.null(args$add)) {
     add_task(args$add)
   } else if (args$list) {
     tasks <- list_tasks()
     print(tasks)
   } else if (!is.null(args$remove)) {
-    remove_task(args$remove)
+    remove_task(as.integer(args$remove)) 
   } else {
-    print("Use --help to get help on using this program")
+    print("File/task doesn't exist")
   }
 }
 
