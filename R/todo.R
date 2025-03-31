@@ -25,22 +25,18 @@ list_tasks <- function() {
 } 
 
 remove_task <- function(index) {
- tasks <- NA
-if (file.exists(TASK_FILE)) {
-  tasks <- readLines(TASK_FILE)
-} else {
-  stop("File cannot be found")
-}
-if (index <= length(tasks)) {
-  tasks <- tasks[-index]
-  if (identical(tasks, character(0))) {
-    stop("Task cannot be found")
+  if (!file.exists(TASK_FILE)) {
+    stop("File cannot be found")
   }
+  tasks <- readLines(TASK_FILE)
+  index <- as.integer(index)
+  if (is.na(index) || index < 1 || index > length(tasks)) {
+    stop("Invalid task index.")
+  }
+  removed_task <- tasks[index]
+  tasks <- tasks[-index]
   writeLines(tasks, TASK_FILE)
-  print("Task removed.")
-} else {
-  stop("No tasks found.")
-}
+  print(paste0("Removed task ", index, ": ", removed_task))
 }
 
 main <- function(args) {
