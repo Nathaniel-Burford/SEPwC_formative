@@ -3,8 +3,9 @@ suppressPackageStartupMessages({
   library(argparse)
 })
 
-TASK_FILE <- ".tasks.txt" # nolint
+TASK_FILE <- ".tasks.txt"
 
+#Functiom that adds tasks
 add_task <- function(task) { #Trying to correct the function
   write(task, file = TASK_FILE, append = TRUE, sep = "\n")
 #Adding the task to read the lines
@@ -13,6 +14,7 @@ add_task <- function(task) { #Trying to correct the function
   }
 }
 
+#Function that lists a task
 list_tasks <- function() {
   if (!file.exists(TASK_FILE)) {
     return("No tasks found.")
@@ -24,6 +26,7 @@ list_tasks <- function() {
   paste(seq_along(tasks), tasks, sep = ". ", collapse = "\n")
 } 
 
+#Function that removes a task
 remove_task <- function(index) {
   if (!file.exists(TASK_FILE)) {
     stop("File cannot be found.") # Changed print() to stop()
@@ -39,6 +42,7 @@ remove_task <- function(index) {
   print(paste0("Removed task ", index, ": ", removed_task))
 }
 
+#Main function that handles the command-line arguments
 main <- function(args) {
   if (!file.exists(TASK_FILE)) {
     file.create(TASK_FILE)
