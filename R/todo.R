@@ -56,7 +56,7 @@ main <- function(args) {
   } else if (!is.null(args$remove)) {
     remove_task(as.integer(args$remove)) 
   } else {
-    print("File/task doesn't exist")
+    print("Task doesn't exist")
   }
 }
 
