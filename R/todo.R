@@ -5,7 +5,7 @@ suppressPackageStartupMessages({
 
 TASK_FILE <- ".tasks.txt"
 
-#Functiom that adds tasks
+#Functiom that adds  a su=ingle task
 add_task <- function(task) { #Trying to correct the function
   write(task, file = TASK_FILE, append = TRUE, sep = "\n")
 #Adding the task to read the lines
@@ -29,7 +29,7 @@ list_tasks <- function() {
 #Function that removes a task
 remove_task <- function(index) {
   if (!file.exists(TASK_FILE)) {
-    stop("File cannot be found.") # Changed print() to stop()
+    stop("File not found.") # Changed print() to stop()
   }
   tasks <- readLines(TASK_FILE)
   index <- as.integer(index)
