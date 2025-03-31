@@ -3,10 +3,6 @@ suppressPackageStartupMessages({
   library(argparse)
 })
 
-suppressPackageStartupMessages({
-  library(lintr)
-})  
-
 TASK_FILE <- ".tasks.txt" # nolint
 
 add_task <- function(task) { #Trying to correct the function
@@ -58,6 +54,7 @@ main <- function(args) {
     print("Use --help to get help on using this program")
   }
 }
+
 if (sys.nframe() == 0) {
 
   # main program, called via Rscript
