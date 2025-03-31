@@ -26,12 +26,14 @@ list_tasks <- function() {
 
 remove_task <- function(index) {
   if (!file.exists(TASK_FILE)) {
-    stop("File cannot be found")
+    print("File tasks found.") #Changed stop() to print()
+    return()
   }
   tasks <- readLines(TASK_FILE)
   index <- as.integer(index)
   if (is.na(index) || index < 1 || index > length(tasks)) {
-    stop("Invalid task index.")
+    print("Invalid task index.") #Changed stop() to print() again
+    return()
   }
   removed_task <- tasks[index]
   tasks <- tasks[-index]
@@ -57,7 +59,6 @@ main <- function(args) {
 }
 
 if (sys.nframe() == 0) {
-
   # main program, called via Rscript
   parser <- ArgumentParser(description = "Command-line Todo List")
   parser$add_argument("-a", "--add",
