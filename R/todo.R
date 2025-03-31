@@ -10,13 +10,17 @@ add_task <- function(task) { #Trying to correct the function
 #Adding the task to read the lines
   if (interactive()) {
   cat(paste0("Added task: ", task, "\n"))
-}
+  }
 }
 
 list_tasks <- function() {
-  if (!file.exists(TASK_FILE)) return("No tasks found.")
+  if (!file.exists(TASK_FILE)) {
+    return("No tasks found.")
+  }
   tasks <- readLines(TASK_FILE)
-  if (length(tasks) == 0) return("No tasks found")
+  if (length(tasks) == 0) {
+    return("No tasks found")
+  }
   paste(seq_along(tasks), tasks, sep = ". ", collapse = "\n")
 } 
 
