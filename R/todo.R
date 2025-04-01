@@ -5,7 +5,7 @@ suppressPackageStartupMessages({
 
 TASK_FILE <- ".tasks.txt"
 
-#Functiom that adds  a su=ingle task
+#Functiom that adds a task
 add_task <- function(task) { #Trying to correct the function
   write(task, file = TASK_FILE, append = TRUE, sep = "\n")
 #Adding the task to read the lines
@@ -29,12 +29,12 @@ list_tasks <- function() {
 #Function that removes a task
 remove_task <- function(index) {
   if (!file.exists(TASK_FILE)) {
-    stop("File not found.") # Changed print() to stop()
+    stop("File not found.")
   }
   tasks <- readLines(TASK_FILE)
   index <- as.integer(index)
   if (is.na(index) || index < 1 || index > length(tasks)) {
-    stop("Invalid task index.") # Changed print() to stop()
+    stop("Invalid index.")
   }
   removed_task <- tasks[index]
   tasks <- tasks[-index]
@@ -62,14 +62,14 @@ main <- function(args) {
 
 if (sys.nframe() == 0) {
   # main program, called via Rscript
-  parser <- ArgumentParser(description = "Command-line Todo List")
+  parser <- ArgumentParser(description = "Command-line List")
   parser$add_argument("-a", "--add",
                       help = "Add a new task")
   parser$add_argument("-l", "--list",
                       action = "store_true",
                       help = "List all tasks")
   parser$add_argument("-r", "--remove",
-                      help = "Remove a task by index")
+                      help = "Remove a task index")
 
   args <- parser$parse_args()
   main(args)
