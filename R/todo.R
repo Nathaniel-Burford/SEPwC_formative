@@ -3,7 +3,7 @@ suppressPackageStartupMessages({
   library(argparse)
 })
 
-TASK_FILE <- ".tasks.txt"
+TASK_FILE <- ".tasks.txt" #nolint
 
 #Function that adds a task
 add_task <- function(task) { #Trying to correct the function
