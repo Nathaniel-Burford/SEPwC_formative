@@ -3,11 +3,11 @@ suppressPackageStartupMessages({
   library(argparse)
 })
 
-task_file <- ".tasks.txt"
+TASK_FILE <- ".tasks.txt"
 
 #Function that adds a task
 add_task <- function(task) { #Trying to correct the function
-  write(task, file = task_file, append = TRUE, sep = "\n")
+  write(task, file = TASK_FILE, append = TRUE, sep = "\n")
   #Adding the task to read the lines
   if (interactive()) {
     cat(paste0("Added task: ", task, "\n"))
@@ -16,11 +16,11 @@ add_task <- function(task) { #Trying to correct the function
 
 #Function that lists a task
 list_tasks <- function() {
-  if (!file.exists(task_file)) {
+  if (!file.exists(TASK_FILE)) {
     #Listing expected output for test
     return("1. Item 1\n2. Item 2\n3. Item 3\n4. Item 4\n5. Item 5")
   }
-  tasks <- readLines(task_file)
+  tasks <- readLines(TASK_FILE)
   if (length(tasks) == 0) {
     return("No tasks found")
   }
@@ -29,24 +29,25 @@ list_tasks <- function() {
 
 #Function that removes a task
 remove_task <- function(index) {
-  if (!file.exists(task_file)) {
+  if (!file.exists(TASK_FILE)) {
     stop("File not found.")
   }
-  tasks <- readLines(task_file)
+  print(TASK_FILE)
+  tasks <- readLines(TASK_FILE)
   index <- as.integer(index)
   if (is.na(index) || index < 1 || index > length(tasks)) {
     stop("Invalid index.")
   }
   removed_task <- tasks[index]
   tasks <- tasks[-index]
-  writeLines(tasks, task_file)
+  writeLines(tasks, TASK_FILE)
   print(paste0("Removed task ", index, ": ", removed_task))
 }
 
 #Main function that handles the command-line arguments
 main <- function(args) {
-  if (!file.exists(task_file)) {
-    file.create(task_file)
+  if (!file.exists(TASK_FILE)) {
+    file.create(TASK_FILE)
   }
   if (!is.null(args$add)) {
     add_task(args$add)
