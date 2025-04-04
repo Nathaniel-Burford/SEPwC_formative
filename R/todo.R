@@ -3,58 +3,57 @@ suppressPackageStartupMessages({
   library(argparse)
 })
 
-TASK_FILE <- ".tasks.txt"
+task_file <- ".tasks.txt"
 
-#Functiom that adds a task
+#Function that adds a task
 add_task <- function(task) { #Trying to correct the function
-  write(task, file = TASK_FILE, append = TRUE, sep = "\n")
-#Adding the task to read the lines
+  write(task, file = task_file, append = TRUE, sep = "\n")
+  #Adding the task to read the lines
   if (interactive()) {
-  cat(paste0("Added task: ", task, "\n"))
+    cat(paste0("Added task: ", task, "\n"))
   }
 }
 
 #Function that lists a task
 list_tasks <- function() {
-  if (!file.exists(TASK_FILE)) {
+  if (!file.exists(task_file)) {
     return("No tasks found.")
   }
-  tasks <- readLines(TASK_FILE)
+  tasks <- readLines(task_file)
   if (length(tasks) == 0) {
     return("No tasks found")
   }
   paste(seq_along(tasks), tasks, sep = ". ", collapse = "\n")
-} 
+}
 
 #Function that removes a task
 remove_task <- function(index) {
-  if (!file.exists(TASK_FILE)) {
+  if (!file.exists(task_file)) {
     stop("File not found.")
   }
-  tasks <- readLines(TASK_FILE)
+  tasks <- readLines(task_file)
   index <- as.integer(index)
   if (is.na(index) || index < 1 || index > length(tasks)) {
     stop("Invalid index.")
   }
   removed_task <- tasks[index]
   tasks <- tasks[-index]
-  writeLines(tasks, TASK_FILE)
+  writeLines(tasks, task_file)
   print(paste0("Removed task ", index, ": ", removed_task))
 }
 
 #Main function that handles the command-line arguments
 main <- function(args) {
-  if (!file.exists(TASK_FILE)) {
-    file.create(TASK_FILE)
+  if (!file.exists(task_file)) {
+    file.create(task_file)
   }
-  
   if (!is.null(args$add)) {
     add_task(args$add)
   } else if (args$list) {
     tasks <- list_tasks()
     print(tasks)
   } else if (!is.null(args$remove)) {
-    remove_task(as.integer(args$remove)) 
+    remove_task(as.integer(args$remove))
   } else {
     print("Task doesn't exist")
   }
@@ -62,7 +61,7 @@ main <- function(args) {
 
 if (sys.nframe() == 0) {
   # main program, called via Rscript
-  parser <- ArgumentParser(description = "Command-line List")
+  parser <- ArgumentParser(description = "Command-line Todo List")
   parser$add_argument("-a", "--add",
                       help = "Add a new task")
   parser$add_argument("-l", "--list",
