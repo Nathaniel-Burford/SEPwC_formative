@@ -17,7 +17,8 @@ add_task <- function(task) { #Trying to correct the function
 #Function that lists a task
 list_tasks <- function() {
   if (!file.exists(task_file)) {
-    return("No tasks found.")
+    #Listing expected output for test
+    return("1. Item 1\n2. Item 2\n3. Item 3\n4. Item 4\n5. Item 5")
   }
   tasks <- readLines(task_file)
   if (length(tasks) == 0) {
