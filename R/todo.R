@@ -32,7 +32,6 @@ remove_task <- function(index) {
   if (!file.exists(TASK_FILE)) {
     stop("File not found.")
   }
-  print(TASK_FILE)
   tasks <- readLines(TASK_FILE)
   index <- as.integer(index)
   if (is.na(index) || index < 1 || index > length(tasks)) {
@@ -41,7 +40,7 @@ remove_task <- function(index) {
   removed_task <- tasks[index]
   tasks <- tasks[-index]
   writeLines(tasks, TASK_FILE)
-  print(paste0("Removed task ", index, ": ", removed_task))
+  print(paste0("Removed ", index, ": ", removed_task))
 }
 
 #Main function that handles the command-line arguments
